@@ -408,7 +408,7 @@ footer {
 const WHATSAPP = "5565999999999";
 
 // Impede agendamento em datas anteriores
-const campoData = document.getElementById("data");
+const campo Data = document.getElementById("data");
 const hoje = new Date();
 const dataLocal = new Date(
     hoje.getTime() - hoje.getTimezoneOffset() * 60000
