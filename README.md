@@ -404,8 +404,46 @@ footer {
 
 <script>
 
-// SUBSTITUA PELO SEU NÚMERO COM DDD E CÓDIGO DO PAÍS
-const WHATSAPP = "5565999999999";
+<script>
+  const WHATSAPP = "5565999999999";
+  const campoData = document.getElementById("data");
+  const hoje = new Date();
+  const dataLocal = new Date(
+    hoje.getTime() - hoje.getTimezoneOffset() * 60000
+  ).toISOString().split("T")[0];
+
+  campoData.min = dataLocal;
+
+  document.getElementById("appointmentForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const servico = document.getElementById("servico").value;
+    const data = document.getElementById("data").value;
+    const horario = document.getElementById("horario").value;
+    const mensagem = document.getElementById("mensagem").value.trim();
+
+    if (!nome || !telefone || !servico || !data || !horario) {
+      alert("Preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    const texto = `Olá! Gostaria de solicitar um agendamento de fisioterapia.
+
+<input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+<input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+<select id="servico" name="servico" required>...</select>
+<input type="date" id="data" name="data" required>
+<select id="horario" name="horario" required>...</select>
+<textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva uma mensagem"></textarea>
+
+Aguardo a confirmação da disponibilidade.`;
+
+    const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
+    window.open(url, "_blank");
+  });
+</script>
 
 // Impede agendamento em datas anteriores
 const campo Data = document.getElementById("data");
@@ -431,12 +469,13 @@ document.getElementById("appointmentForm")
     const texto =
 `Olá! Gostaria de solicitar um agendamento de fisioterapia.
 
-Nome: ${nome}
-Telefone: ${telefone}
-Serviço: ${servico}
-Data desejada: ${data}
-Horário desejado: ${horario}
-Mensagem: ${mensagem}
+<section class="contact" id="contato">
+  <h2 class="section-title">Entre em Contato</h2>
+  <p>📍 Rua das Flores, 123 - Centro, Campo Grande - MS</p>
+  <p>📞 (67) 99999-9999</p>
+  <p>📧 contato@fisiosaude.com.br</p>
+  <p>🕒 Segunda a sexta-feira, das 7h às 18h</p>
+</section>
 
 Aguardo a confirmação da disponibilidade.`;
 
